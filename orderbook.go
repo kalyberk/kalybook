@@ -27,8 +27,13 @@ func (b *OrderBook) AddOrder(order *Order) {
 		limit = NewLimit(order.Price)
 		book[order.Price] = limit
 	}
-
 	limit.Enqueue(order)
+
+	if order.BidOrAsk && (b.BestBid == nil || order.Price > b.BestBid.Price) {
+		b.BestBid = order
+	} else if !order.BidOrAsk && (b.BestAsk == nil || order.Price < b.BestAsk.Price) {
+		b.BestAsk = order
+	}
 }
 
 func (b *OrderBook) CancelOrder(order *Order) {
@@ -64,7 +69,6 @@ func (b *OrderBook) ExecOrder(order *Order) {
 
 	if order.Remaining > 0 {
 		b.AddOrder(order)
-		b.UpdateBestPrice(order.BidOrAsk)
 	}
 }
 
@@ -91,7 +95,6 @@ func (b *OrderBook) DeleteLimit(limit *Limit) {
 	} else {
 		book = b.Asks
 	}
-
 	delete(book, limit.Price)
 }
 
