@@ -98,7 +98,6 @@ func (b *OrderBook) DeleteLimit(limit *Limit) {
 	delete(book, limit.Price)
 }
 
-
 func (b *OrderBook) UpdateBestPrice(bidOrAsk bool) {
 	if bidOrAsk {
 		b.UpdateBestBid()

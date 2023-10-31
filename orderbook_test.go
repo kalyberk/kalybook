@@ -54,4 +54,3 @@ func testOrderBookCancelOrder(t *testing.T) {
 		t.Errorf("Expected %d bids, got %d", n-1, bidCount)
 	}
 }
-

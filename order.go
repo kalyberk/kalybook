@@ -1,6 +1,5 @@
 package orderbook
 
-
 type Order struct {
 	ID        int
 	BidOrAsk  bool // true for a bid and false for an ask
@@ -8,9 +7,9 @@ type Order struct {
 	Amount    float64
 	Filled    float64
 	Remaining float64
-	Limit *Limit
-	Prev  *Order
-	Next  *Order
+	Limit     *Limit
+	Prev      *Order
+	Next      *Order
 }
 
 func NewOrder(id int, bidOrAsk bool, price float64, amount float64) *Order {
